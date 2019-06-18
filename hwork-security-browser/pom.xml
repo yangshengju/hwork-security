@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>hwork-security</artifactId>
+        <groupId>com.hwork.security</groupId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>hwork-security-browser</artifactId>
+    <!--<properties>
+        <hwork.security.version>1.0.0-SNAPSHOT</hwork.security.version>
+    </properties>-->
+    <dependencies>
+        <dependency>
+            <groupId>com.hwork.security</groupId>
+            <artifactId>hwork-security-core</artifactId>
+            <version>${hwork.security.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.session</groupId>
+            <artifactId>spring-session-core</artifactId>
+        </dependency>
+    </dependencies>
+</project>
