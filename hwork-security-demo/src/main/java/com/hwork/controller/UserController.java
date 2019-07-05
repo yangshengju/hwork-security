@@ -2,6 +2,7 @@ package com.hwork.controller;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import com.hwork.dto.User;
+import com.hwork.exception.UserNotExistException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.validation.BindingResult;
@@ -57,9 +58,10 @@ public class UserController {
     @GetMapping("/{id}")
     @JsonView(User.UserDetailView.class)
     public User getUserDetail(@PathVariable("id") String userId) {
-        logger.info("userId from front : "+userId);
-        User user = new User();
-        user.setUserName("tom");
-        return user;
+        throw new UserNotExistException(userId,"not exist exception!");
+//        logger.info("userId from front : "+userId);
+//        User user = new User();
+//        user.setUserName("tom");
+//        return user;
     }
 }
