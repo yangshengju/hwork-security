@@ -58,10 +58,10 @@ public class UserController {
     @GetMapping("/{id}")
     @JsonView(User.UserDetailView.class)
     public User getUserDetail(@PathVariable("id") String userId) {
-        throw new UserNotExistException(userId,"not exist exception!");
-//        logger.info("userId from front : "+userId);
-//        User user = new User();
-//        user.setUserName("tom");
-//        return user;
+//        throw new UserNotExistException(userId,"not exist exception!");
+        logger.info("userId from front : "+userId);
+        User user = new User();
+        user.setUserName("tom");
+        return user;
     }
 }
