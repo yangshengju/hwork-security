@@ -15,15 +15,18 @@ public class MockQueue {
     }
 
     public void setPlaceOrder(String placeOrder) {
-        logger.info("receive order request,"+placeOrder);
-        this.placeOrder = placeOrder;
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        this.completeOrder=placeOrder;
-        logger.info("complete order..."+placeOrder);
+        new Thread(() -> {
+            logger.info("receive order request,"+placeOrder);
+            this.placeOrder = placeOrder;
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            this.completeOrder=placeOrder;
+            logger.info("complete order..."+placeOrder);
+        }).start();
+
     }
 
     public String getCompleteOrder() {
