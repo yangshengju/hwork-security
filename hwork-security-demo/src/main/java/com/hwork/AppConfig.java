@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Configuration
-public class AppConfig extends WebSecurityConfigurerAdapter implements WebMvcConfigurer {
+public class AppConfig implements WebMvcConfigurer {
 
     Logger logger = LoggerFactory.getLogger(AppConfig.class);
 
@@ -37,17 +37,5 @@ public class AppConfig extends WebSecurityConfigurerAdapter implements WebMvcCon
         urlPatthers.add("/*");
         filterRegistrationBean.setUrlPatterns(urlPatthers);
         return filterRegistrationBean;
-    }
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        logger.debug("Using custom configure(HttpSecurity). ");
-
-        http
-                .authorizeRequests()
-                .anyRequest()
-                .permitAll()
-                .and()
-                .csrf()
-                .disable();
     }
 }
