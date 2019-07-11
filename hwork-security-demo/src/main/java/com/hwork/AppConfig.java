@@ -26,7 +26,7 @@ public class AppConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(timeInterceptor);
+        registry.addInterceptor(timeInterceptor).excludePathPatterns("*.html");
     }
     @Bean
     public FilterRegistrationBean timeFilter() {
