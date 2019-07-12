@@ -20,6 +20,7 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private AuthenticationSuccessHandler customAuthenticationSuccessHandler;
 
+    @Autowired
     private AuthenticationFailureHandler customAuthenticationFailureHandler;
 
     @Bean
