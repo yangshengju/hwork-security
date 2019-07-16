@@ -1,6 +1,7 @@
 package com.hwork.browser;
 
 import com.hwork.core.properties.SecurityProperties;
+import com.hwork.core.verificationcode.VerificationCodeValidateFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -10,6 +11,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
@@ -29,14 +31,17 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
     }
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.formLogin()
+        VerificationCodeValidateFilter verificationCodeValidateFilter = new VerificationCodeValidateFilter();
+        verificationCodeValidateFilter.setAuthenticationFailureHandler(customAuthenticationFailureHandler);
+        http.addFilterBefore(verificationCodeValidateFilter, UsernamePasswordAuthenticationFilter.class)
+                .formLogin()
                 .loginPage("/authentication/required")
                 .loginProcessingUrl("/authentication/form")
                 .successHandler(customAuthenticationSuccessHandler)
                 .failureHandler(customAuthenticationFailureHandler)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/authentication/required",securityProperties.getBrowserProperties().getLoginPage())
+                .antMatchers("/authentication/required",securityProperties.getBrowserProperties().getLoginPage(),"/verificationCode/generateImageCode")
                 .permitAll()
                 .anyRequest()
                 .authenticated();

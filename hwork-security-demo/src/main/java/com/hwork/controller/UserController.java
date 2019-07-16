@@ -5,6 +5,9 @@ import com.hwork.dto.User;
 import com.hwork.exception.UserNotExistException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
@@ -18,6 +21,12 @@ import java.util.List;
 @RequestMapping("/user")
 public class UserController {
     Logger logger = LoggerFactory.getLogger(UserController.class);
+
+    @GetMapping("/authInfo")
+    public Object getCurrentUser(@AuthenticationPrincipal UserDetails userDetails) {
+        return userDetails;
+    }
+
     @GetMapping
     @JsonView(User.UserSimpleView.class)
     public List<User> queryUserList(@RequestParam("username") String userName) {
