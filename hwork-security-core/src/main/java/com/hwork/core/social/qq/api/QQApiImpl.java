@@ -1,10 +1,13 @@
 package com.hwork.core.social.qq.api;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.social.oauth2.AbstractOAuth2ApiBinding;
 import org.springframework.social.oauth2.TokenStrategy;
+
+import java.io.IOException;
 
 /**
  * Created by yangshengju on 2019-7-17.
@@ -16,6 +19,8 @@ public class QQApiImpl extends AbstractOAuth2ApiBinding implements IQQApi {
     private static final String URL_GET_OPENID="https://graph.qq.com/oauth2.0/me?access_token=YOUR_ACCESS_TOKEN=%s";
 
     private static final String URL_GET_USERINFO="https://graph.qq.com/user/get_user_info?oauth_consumer_key=%s&openid=%s";
+
+    private ObjectMapper objectMapper = new ObjectMapper();
     /**
      * 应用在QQ系统注册的Id
      */
@@ -34,7 +39,14 @@ public class QQApiImpl extends AbstractOAuth2ApiBinding implements IQQApi {
 
     @Override
     public QQUserInfo getUserInfo() {
-        String url = String.format(URL_GET_USERINFO,appId,openId);
+        String urlGetUserInfo = String.format(URL_GET_USERINFO,appId,openId);
+        String result = getRestTemplate().getForObject(urlGetUserInfo,String.class);
+        logger.info("result for get UserInfo : "+result);
+        try {
+            return objectMapper.readValue(result,QQUserInfo.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return null;
     }
 }
