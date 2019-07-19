@@ -6,6 +6,7 @@ package com.hwork.core.social.qq.api;
 public class QQUserInfo {
     private String ret;//	返回码
     private String msg;//	如果ret<0，会有相应的错误信息提示，返回数据全部用UTF-8编码。
+    private String openId;//用户在服务提供商系统的唯一标识
     private String nickname;//	用户在QQ空间的昵称。
     private String figureurl;//	大小为30×30像素的QQ空间头像URL。
     private String figureurl_1;//	大小为50×50像素的QQ空间头像URL。
@@ -28,6 +29,14 @@ public class QQUserInfo {
 
     public void setMsg(String msg) {
         this.msg = msg;
+    }
+
+    public String getOpenId() {
+        return openId;
+    }
+
+    public void setOpenId(String openId) {
+        this.openId = openId;
     }
 
     public String getNickname() {
