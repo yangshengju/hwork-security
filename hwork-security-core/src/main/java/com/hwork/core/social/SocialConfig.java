@@ -15,6 +15,8 @@ public class SocialConfig extends SocialConfigurerAdapter {
     private DataSource dataSource;
     @Override
     public UsersConnectionRepository getUsersConnectionRepository(ConnectionFactoryLocator connectionFactoryLocator) {
-        return new JdbcUsersConnectionRepository(dataSource,connectionFactoryLocator, Encryptors.noOpText());
+        UsersConnectionRepository usersConnectionRepository = new JdbcUsersConnectionRepository(dataSource,connectionFactoryLocator, Encryptors.noOpText());
+        ((JdbcUsersConnectionRepository) usersConnectionRepository).setTablePrefix("t_");
+        return usersConnectionRepository;
     }
 }
