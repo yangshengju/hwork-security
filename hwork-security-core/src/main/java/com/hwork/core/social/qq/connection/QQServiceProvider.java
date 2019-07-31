@@ -3,7 +3,6 @@ package com.hwork.core.social.qq.connection;
 import com.hwork.core.social.qq.api.IQQApi;
 import com.hwork.core.social.qq.api.QQApiImpl;
 import org.springframework.social.oauth2.AbstractOAuth2ServiceProvider;
-import org.springframework.social.oauth2.OAuth2Operations;
 import org.springframework.social.oauth2.OAuth2Template;
 
 public class QQServiceProvider extends AbstractOAuth2ServiceProvider<IQQApi> {
