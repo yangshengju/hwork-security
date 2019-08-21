@@ -15,7 +15,7 @@ import static com.github.tomakehurst.wiremock.client.WireMock.*;
 @SpringBootTest
 public class WireMockTest {
     @Rule
-    public WireMockRule wireMockRule = new WireMockRule(8089); // No-args constructor defaults to port 8080
+    public WireMockRule wireMockRule = new WireMockRule(8989); // No-args constructor defaults to port 8080
 
     @Test
     public void exampleTest() {
