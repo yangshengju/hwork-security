@@ -3,6 +3,7 @@ package com.hwork.core.social.qq.config;
 import com.hwork.core.properties.QQProperties;
 import com.hwork.core.properties.SecurityProperties;
 import com.hwork.core.social.qq.connection.QQConnectionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
@@ -14,6 +15,7 @@ import org.springframework.social.connect.ConnectionFactory;
 @ConditionalOnProperty(prefix = "hwork.security.social.qq", name = "app-id")
 public class QQAutoConfig extends SocialConfigurerAdapter {
 
+    @Autowired
     private SecurityProperties securityProperties;
     @Override
     public void addConnectionFactories(ConnectionFactoryConfigurer connectionFactoryConfigurer, Environment environment) {

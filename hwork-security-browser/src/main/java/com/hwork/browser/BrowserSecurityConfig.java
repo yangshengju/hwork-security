@@ -12,6 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.social.security.SpringSocialConfigurer;
 
 @Configuration
 public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
@@ -24,6 +25,9 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private AuthenticationFailureHandler customAuthenticationFailureHandler;
+
+    @Autowired
+    private SpringSocialConfigurer hworkSocialSecurityConfig;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -44,7 +48,8 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(securityProperties.getBrowser().getNotAuthList().split(","))
                 .permitAll()
                 .anyRequest()
-                .authenticated();
+                .authenticated().and()
+        .apply(hworkSocialSecurityConfig);
         http.csrf().disable();
     }
 }
