@@ -18,10 +18,10 @@ import javax.sql.DataSource;
 public class SocialConfig extends SocialConfigurerAdapter {
 
     @Autowired
-    private DataSource dataSource;
+    private DataSource druidDataSource;
     @Override
     public UsersConnectionRepository getUsersConnectionRepository(ConnectionFactoryLocator connectionFactoryLocator) {
-        UsersConnectionRepository usersConnectionRepository = new JdbcUsersConnectionRepository(dataSource,connectionFactoryLocator, Encryptors.noOpText());
+        UsersConnectionRepository usersConnectionRepository = new JdbcUsersConnectionRepository(druidDataSource,connectionFactoryLocator, Encryptors.noOpText());
         ((JdbcUsersConnectionRepository) usersConnectionRepository).setTablePrefix("t_");
         return usersConnectionRepository;
     }

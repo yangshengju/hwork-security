@@ -1,13 +1,17 @@
 package com.hwork;
 
+import com.alibaba.druid.pool.DruidDataSource;
 import com.hwork.filter.TimeFilter;
 import com.hwork.interceptor.TimeInterceptor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.PropertySources;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -21,17 +25,16 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-//@Configuration
+@Configuration
+@PropertySources(value = { @PropertySource("classpath:application.properties") })
 public class AppConfig implements WebMvcConfigurer {
 
-    Logger logger = LoggerFactory.getLogger(AppConfig.class);
-
-    @Autowired
+   /* @Autowired
     private TimeInterceptor timeInterceptor;
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(timeInterceptor).excludePathPatterns("/*.html");
+        registry.addInterceptor(timeInterceptor).excludePathPatterns("*//*.html");
     }
     @Bean
     public FilterRegistrationBean timeFilter() {
@@ -39,10 +42,34 @@ public class AppConfig implements WebMvcConfigurer {
         TimeFilter timeFilter = new TimeFilter();
         filterRegistrationBean.setFilter(timeFilter);
         List<String> urlPatthers = new ArrayList();
-        urlPatthers.add("/*");
+        urlPatthers.add("*//*");
         filterRegistrationBean.setUrlPatterns(urlPatthers);
         return filterRegistrationBean;
+    }*/
+   private static final Logger logger = LoggerFactory.getLogger(AppConfig.class);
+    /*
+    * 绑定资源属性
+    */
+    @Value("${hwork.jdbc.driver}")
+    private String driverClass;
+
+    @Value("${hwork.jdbc.url}")
+    private String url;
+
+    @Value("${hwork.jdbc.username}")
+    private String userName;
+
+    @Value("${hwork.jdbc.password}")
+    private String passWord;
+
+    @Bean
+    public DruidDataSource druidDataSource() {
+        DruidDataSource ds = new DruidDataSource();
+        CommonConfig.getCommonConfigInstance().constructDataSource(ds,driverClass,url,userName,passWord);
+        return ds;
+
     }
+
 
     @Bean
     public Docket petApi() {
