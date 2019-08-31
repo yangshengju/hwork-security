@@ -1,20 +1,13 @@
 package com.hwork;
 
 import com.alibaba.druid.pool.DruidDataSource;
-import com.hwork.filter.TimeFilter;
-import com.hwork.interceptor.TimeInterceptor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.PropertySources;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -22,8 +15,6 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 @Configuration
 @PropertySources(value = { @PropertySource("classpath:application.properties") })
@@ -50,16 +41,16 @@ public class AppConfig implements WebMvcConfigurer {
     /*
     * 绑定资源属性
     */
-    @Value("${hwork.jdbc.driver}")
+    @Value("${hwork.datasource.driver-class-name}")
     private String driverClass;
 
-    @Value("${hwork.jdbc.url}")
+    @Value("${hwork.datasource.url}")
     private String url;
 
-    @Value("${hwork.jdbc.username}")
+    @Value("${hwork.datasource.username}")
     private String userName;
 
-    @Value("${hwork.jdbc.password}")
+    @Value("${hwork.datasource.password}")
     private String passWord;
 
     @Bean

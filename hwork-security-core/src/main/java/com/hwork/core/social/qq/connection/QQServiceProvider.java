@@ -15,6 +15,7 @@ public class QQServiceProvider extends AbstractOAuth2ServiceProvider<IQQApi> {
 
     public QQServiceProvider(String appId,String appSecret) {
         super(new OAuth2Template(appId, appSecret, URL_AUTHORIZE, URL_ACCESS_TOKEM));
+        this.appId=appId;
     }
 
     @Override
