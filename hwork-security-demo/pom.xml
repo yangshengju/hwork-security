@@ -12,9 +12,14 @@
     <artifactId>hwork-security-demo</artifactId>
 
     <dependencies>
-        <dependency>
+        <!--<dependency>
             <groupId>com.hwork.security</groupId>
             <artifactId>hwork-security-browser</artifactId>
+            <version>${hwork.security.version}</version>
+        </dependency>-->
+        <dependency>
+            <groupId>com.hwork.security</groupId>
+            <artifactId>hwork-security-app</artifactId>
             <version>${hwork.security.version}</version>
         </dependency>
         <dependency>

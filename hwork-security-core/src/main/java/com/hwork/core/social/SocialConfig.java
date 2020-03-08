@@ -23,6 +23,7 @@ public class SocialConfig extends SocialConfigurerAdapter {
     @Autowired
     private DataSource druidDataSource;
 
+    @Autowired
     private SecurityProperties securityProperties;
 
     @Override
