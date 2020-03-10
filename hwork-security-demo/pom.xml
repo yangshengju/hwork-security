@@ -12,16 +12,16 @@
     <artifactId>hwork-security-demo</artifactId>
 
     <dependencies>
-        <!--<dependency>
+        <dependency>
             <groupId>com.hwork.security</groupId>
             <artifactId>hwork-security-browser</artifactId>
             <version>${hwork.security.version}</version>
-        </dependency>-->
-        <dependency>
+        </dependency>
+        <!--<dependency>
             <groupId>com.hwork.security</groupId>
             <artifactId>hwork-security-app</artifactId>
             <version>${hwork.security.version}</version>
-        </dependency>
+        </dependency>-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -47,7 +47,19 @@
             <version>1.1.19</version>
         </dependency>
     </dependencies>
-
+    <repositories>
+        <repository>
+            <id>maven-central</id>
+            <name>maven-central</name>
+            <url>http://10.133.0.23:8081/repository/maven-public/</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+        </repository>
+    </repositories>
     <build>
         <plugins>
             <plugin>

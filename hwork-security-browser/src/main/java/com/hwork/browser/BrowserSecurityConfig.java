@@ -28,11 +28,6 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private SpringSocialConfigurer hworkSocialSecurityConfig;
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         VerificationCodeValidateFilter verificationCodeValidateFilter = new VerificationCodeValidateFilter();
