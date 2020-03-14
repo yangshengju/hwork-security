@@ -2,15 +2,12 @@ package com.hwork.controller;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import com.hwork.dto.User;
-import com.hwork.exception.UserNotExistException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -41,9 +38,7 @@ public class UserController {
     @PostMapping
     public User createUser(@Valid @RequestBody User user, BindingResult errors) {
         if (errors.hasErrors()) {
-            for(ObjectError objectError :errors.getAllErrors()) {
-                logger.info(((FieldError)objectError).getField()+" : "+objectError.getDefaultMessage());
-            }
+            errors.getAllErrors().stream().forEach(objectError->logger.info(((FieldError)objectError).getField()+" : "+objectError.getDefaultMessage()));
         }
         logger.info(user.toString());
         user.setUserId("3");
@@ -53,13 +48,20 @@ public class UserController {
     @PutMapping("/{userId}")
     public User updateUser(@Valid @RequestBody User user, BindingResult errors) {
         if (errors.hasErrors()) {
-            for(ObjectError objectError :errors.getAllErrors()) {
-                logger.info(((FieldError)objectError).getField()+" : "+objectError.getDefaultMessage());
-            }
+                errors.getAllErrors().stream().forEach(objectError->logger.info(((FieldError)objectError).getField()+" : "+objectError.getDefaultMessage()));
         }
         logger.info(user.toString());
 //        user.setUserId("3");
         return user;
+    }
+
+    @DeleteMapping("/{userId}")
+    public Boolean deleteUser(@Valid @PathVariable String userId, BindingResult errors) {
+        if (errors.hasErrors()) {
+            errors.getAllErrors().stream().forEach(objectError->logger.info(((FieldError)objectError).getField()+" : "+objectError.getDefaultMessage()));
+        }
+//        user.setUserId("3");
+        return true;
     }
 
 

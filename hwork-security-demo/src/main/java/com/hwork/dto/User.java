@@ -14,6 +14,7 @@ public class User {
     private String userName;
     @NotBlank
     private String password;
+    @JsonView(UserDetailView.class)
     private Date birthDay;
 
     @JsonView(UserSimpleView.class)

@@ -81,13 +81,23 @@ public class UserControllerTest {
 
 
     @Test
-    public void getUseDetailTest() {
+    public void getUserDetailTest() {
         try {
             String resultDetail=mockMvc.perform(MockMvcRequestBuilders.get("/user/1").contentType(MediaType.APPLICATION_JSON_UTF8))
                     .andExpect(MockMvcResultMatchers.status().isOk())
                     .andExpect(MockMvcResultMatchers.jsonPath("$.userName").value("tom"))
                     .andReturn().getResponse().getContentAsString();
             logger.info("resultDetail:"+resultDetail);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void deleteUserTest() {
+        try {
+            mockMvc.perform(MockMvcRequestBuilders.delete("/user/1").contentType(MediaType.APPLICATION_JSON_UTF8))
+                    .andExpect(MockMvcResultMatchers.status().isOk());
         } catch (Exception e) {
             e.printStackTrace();
         }
