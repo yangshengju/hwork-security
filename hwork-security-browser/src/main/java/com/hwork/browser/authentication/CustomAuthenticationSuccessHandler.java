@@ -1,10 +1,9 @@
 package com.hwork.browser.authentication;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hwork.core.properties.LoginType;
 import com.hwork.core.properties.SecurityProperties;
-import org.codehaus.jackson.map.ObjectMapper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
@@ -16,17 +15,16 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @Component("customAuthenticationSuccessHandler")
+@Slf4j
 public class CustomAuthenticationSuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler {
-    Logger logger = LoggerFactory.getLogger(getClass());
 
-//    @Autowired
-    private ObjectMapper objectMapper = new ObjectMapper();
-
+    @Autowired
+    private ObjectMapper objectMapper;
     @Autowired
     private SecurityProperties securityProperties;
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
-        logger.info("认证成功，enter onAuthenticationSuccess method...");
+        log.info("认证成功，enter onAuthenticationSuccess method...");
         if(LoginType.JSON.equals(securityProperties.getBrowser().getLoginType())) {
             response.setContentType("application/json;charset=UTF-8");
             response.getWriter().write(objectMapper.writeValueAsString(authentication));

@@ -1,11 +1,10 @@
 package com.hwork.browser.authentication;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hwork.browser.support.SimpleResponse;
 import com.hwork.core.properties.LoginType;
 import com.hwork.core.properties.SecurityProperties;
-import org.codehaus.jackson.map.ObjectMapper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.AuthenticationException;
@@ -18,17 +17,16 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @Component("customAuthenticationFailureHandler")
+@Slf4j
 public class CustomAuthenticationFailureHandler extends SimpleUrlAuthenticationFailureHandler {
-    Logger logger = LoggerFactory.getLogger(getClass());
-
-    //    @Autowired
-    private ObjectMapper objectMapper = new ObjectMapper();
+    @Autowired
+    private ObjectMapper objectMapper;
 
     @Autowired
     private SecurityProperties securityProperties;
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
-        logger.info("认证失败，enter onAuthenticationSuccess method...");
+        log.info("认证失败，enter onAuthenticationSuccess method...");
         if(LoginType.JSON.equals(securityProperties.getBrowser().getLoginType())) {
             response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
             response.setContentType("application/json;charset=UTF-8");
