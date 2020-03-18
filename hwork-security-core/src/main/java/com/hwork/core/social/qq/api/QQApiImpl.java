@@ -16,7 +16,7 @@ public class QQApiImpl extends AbstractOAuth2ApiBinding implements IQQApi {
 
     Logger logger = LoggerFactory.getLogger(QQApiImpl.class);
 
-    private static final String URL_GET_OPENID="https://graph.qq.com/oauth2.0/me?access_token=YOUR_ACCESS_TOKEN=%s";
+    private static final String URL_GET_OPENID="https://graph.qq.com/oauth2.0/me?access_token=%s";
 
     private static final String URL_GET_USERINFO="https://graph.qq.com/user/get_user_info?oauth_consumer_key=%s&openid=%s";
 

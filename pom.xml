@@ -17,6 +17,7 @@
         <module>hwork-security-browser</module>
         <module>hwork-security-app</module>
         <module>hwork-security-demo</module>
+        <module>hwork-test</module>
     </modules>
     <packaging>pom</packaging>
 
