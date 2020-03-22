@@ -39,9 +39,9 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(securityProperties.getBrowser().getNotAuthList().split(","))
                 .permitAll()
                 .anyRequest()
-                .authenticated();
-//                .and()
-//        .apply(hworkSocialSecurityConfig);
+                .authenticated()
+                .and()
+        .apply(hworkSocialSecurityConfig);
         http.csrf().disable();
     }
 }
