@@ -1,6 +1,6 @@
-package com.hwork.browser.controller;
+package com.hwork.core.controller;
 
-import com.hwork.browser.support.SimpleResponse;
+import com.hwork.core.support.SimpleResponse;
 import com.hwork.core.properties.SecurityProperties;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @RestController
-public class BrowserSecurityController {
+public class SecurityController {
 
     private Logger logger = LoggerFactory.getLogger(getClass());
 

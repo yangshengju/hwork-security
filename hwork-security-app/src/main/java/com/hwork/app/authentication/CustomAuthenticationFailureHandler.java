@@ -1,4 +1,4 @@
-package com.hwork.browser.authentication;
+package com.hwork.app.authentication;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hwork.core.support.SimpleResponse;

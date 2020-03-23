@@ -33,6 +33,6 @@ public class HworkUserDetailsService implements UserDetailsService, SocialUserDe
 
     private SocialUserDetails buildUser(String userId) {
         String passwordInDB = passwordEncoder.encode("123456");
-        return new SocialUser(userId,passwordInDB, AuthorityUtils.commaSeparatedStringToAuthorityList("admin"));
+        return new SocialUser(userId,passwordInDB, AuthorityUtils.commaSeparatedStringToAuthorityList("admin,ROLE_USER"));
     }
 }
