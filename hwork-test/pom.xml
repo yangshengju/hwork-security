@@ -10,6 +10,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>hwork-test</artifactId>
-
+    <dependencies>
+        <dependency>
+            <groupId>com.hwork.security</groupId>
+            <artifactId>hwork-security-core</artifactId>
+            <version>${hwork.security.version}</version>
+        </dependency>
+    </dependencies>
 
 </project>
