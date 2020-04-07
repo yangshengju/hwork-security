@@ -14,6 +14,9 @@ import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author yangs
+ */
 @RestController
 @RequestMapping("/user")
 public class UserController {

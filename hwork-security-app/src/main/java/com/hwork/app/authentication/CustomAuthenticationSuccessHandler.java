@@ -1,32 +1,14 @@
 package com.hwork.app.authentication;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.hwork.core.properties.SecurityProperties;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.collections4.MapUtils;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.oauth2.common.OAuth2AccessToken;
-import org.springframework.security.oauth2.common.exceptions.UnapprovedClientAuthenticationException;
-import org.springframework.security.oauth2.provider.*;
-import org.springframework.security.oauth2.provider.token.AuthorizationServerTokenServices;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.Base64;
 
 @Component("customAuthenticationSuccessHandler")
 @Slf4j
 public class CustomAuthenticationSuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler {
 
-    @Autowired
+    /*@Autowired
     private ObjectMapper objectMapper;
     @Autowired
     private SecurityProperties securityProperties;
@@ -92,5 +74,5 @@ public class CustomAuthenticationSuccessHandler extends SavedRequestAwareAuthent
             throw new BadCredentialsException("Invalid basic authentication token");
         }
         return new String[] { token.substring(0, delim), token.substring(delim + 1) };
-    }
+    }*/
 }

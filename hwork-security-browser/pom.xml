@@ -19,9 +19,6 @@
             <artifactId>hwork-security-core</artifactId>
             <version>${hwork.security.version}</version>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.session</groupId>
-            <artifactId>spring-session-core</artifactId>
-        </dependency>
+
     </dependencies>
 </project>
