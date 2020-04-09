@@ -1,17 +1,19 @@
 package com.hwork.core.verificationcode;
 
+import lombok.Data;
+
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.util.Random;
 
-
+@Data
 public class IdentifyCodeUtil {
 
     /**
      * 验证码图片宽度
      */
-    private int width = 80;
+    private int width = 120;
     /**
      * 验证码图片高度
      */
@@ -68,7 +70,7 @@ public class IdentifyCodeUtil {
         String temp = "";
         int itmp = 0;
         for(int i=0;i<length;i++){
-            switch (random.nextInt(4)){
+            switch (random.nextInt(length)){
                 case 1:
                     itmp = random.nextInt(26) + 65;//A--Z
                     temp = String.valueOf((char)itmp);
@@ -101,21 +103,6 @@ public class IdentifyCodeUtil {
         return stringBuffer.toString();
     }
 
-    public int getWidth() {
-        return width;
-    }
-
-    public void setWidth(int width) {
-        this.width = width;
-    }
-
-    public int getHeight() {
-        return height;
-    }
-
-    public void setHeight(int height) {
-        this.height = height;
-    }
 
     public static void main(String[] a){
         IdentifyCodeUtil idCode = new IdentifyCodeUtil();

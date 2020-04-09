@@ -1,5 +1,7 @@
 package com.hwork.core.verificationcode;
 
+import com.hwork.core.properties.SecurityProperties;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.social.connect.web.HttpSessionSessionStrategy;
 import org.springframework.social.connect.web.SessionStrategy;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,17 +17,30 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Random;
 
+/**
+ * VerificationCodeController
+ * @author yangs
+ */
 @RestController
 @RequestMapping("/verificationCode")
 public class VerificationCodeController {
     static final String SESSION_KEY = "SESSION_KEY_IMAGE_CODE";
 
+    static final String SESSION_KEY_EXPIRED_TIME = "SESSION_KEY_IMAGE_CODE_EXPIRED_TIME";
+
     private SessionStrategy sessionStrategy = new HttpSessionSessionStrategy();
+
+    private final SecurityProperties securityProperties;
+
+    public VerificationCodeController(SecurityProperties securityProperties) {
+        this.securityProperties = securityProperties;
+    }
 
     @GetMapping("/generateImageCode")
     public void createCode(HttpServletRequest request, HttpServletResponse response) {
         ImageCode imageCode = createImageCode(request);
-        sessionStrategy.setAttribute(new ServletWebRequest(request),SESSION_KEY,imageCode);
+        sessionStrategy.setAttribute(new ServletWebRequest(request),SESSION_KEY,imageCode.getCode());
+        sessionStrategy.setAttribute(new ServletWebRequest(request),SESSION_KEY_EXPIRED_TIME,imageCode.getExpireTime());
         try {
             ImageIO.write(imageCode.getImage(),"JPG",response.getOutputStream());
         } catch (IOException e) {
@@ -48,7 +63,7 @@ public class VerificationCodeController {
             g.fillRect(0, 0, idCode.getWidth(), idCode.getHeight());
             g.setColor(idCode.getRandomColor(180, 200));
             idCode.randomLine(g, 160);
-            String checkCode = idCode.drawRandomString(4, g);
+            String checkCode = idCode.drawRandomString(securityProperties.getCode().getImage().getLength(), g);
             return new ImageCode(image,checkCode,60);
         } catch (Exception e) {
             e.printStackTrace();
