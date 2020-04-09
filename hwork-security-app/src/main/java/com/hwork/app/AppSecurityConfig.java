@@ -14,7 +14,7 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 @Configuration
 public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
+    /*@Autowired
     private SecurityProperties securityProperties;
 
     @Autowired
@@ -40,7 +40,7 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authenticated();
 //                .hasRole("USER");
         http.csrf().disable();
-    }
+    }*/
 
     @Override
     @Bean(name = BeanIds.AUTHENTICATION_MANAGER)
