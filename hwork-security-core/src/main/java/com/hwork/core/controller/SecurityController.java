@@ -20,6 +20,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * @author yangs
+ */
 @RestController
 public class SecurityController {
 
@@ -54,5 +57,12 @@ public class SecurityController {
             }
         }
         return new SimpleResponse("访问的服务需要认证，请引导用户到登录页！");
+    }
+
+    @GetMapping("/session/invalid")
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    public SimpleResponse sessionInvalid() {
+        String message = "session已经失效，请重新认证！";
+        return new SimpleResponse(message);
     }
 }

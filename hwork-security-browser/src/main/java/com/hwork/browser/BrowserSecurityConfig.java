@@ -26,8 +26,7 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
     private SpringSocialConfigurer hworkSocialSecurityConfig;
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        VerificationCodeValidateFilter verificationCodeValidateFilter = new VerificationCodeValidateFilter();
-        verificationCodeValidateFilter.setAuthenticationFailureHandler(customAuthenticationFailureHandler);
+        VerificationCodeValidateFilter verificationCodeValidateFilter = new VerificationCodeValidateFilter(securityProperties, customAuthenticationFailureHandler);
         http//.addFilterBefore(verificationCodeValidateFilter, UsernamePasswordAuthenticationFilter.class)
                 .formLogin()
                 .loginPage("/authentication/required")

@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hwork.core.properties.SecurityProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.MapUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.Authentication;
@@ -26,19 +25,24 @@ import java.util.Base64;
 @Slf4j
 public class CustomAuthenticationSuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler {
 
-    @Autowired
-    private ObjectMapper objectMapper;
-    @Autowired
-    private SecurityProperties securityProperties;
+    private final ObjectMapper objectMapper;
+    private final SecurityProperties securityProperties;
+
+    private final ClientDetailsService clientDetailsService;
+
+    private final AuthorizationServerTokenServices defaultAuthorizationServerTokenServices;
+
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    private ClientDetailsService clientDetailsService;
+    public CustomAuthenticationSuccessHandler(ObjectMapper objectMapper, SecurityProperties securityProperties, ClientDetailsService clientDetailsService, AuthorizationServerTokenServices defaultAuthorizationServerTokenServices, PasswordEncoder passwordEncoder) {
+        this.objectMapper = objectMapper;
+        this.securityProperties = securityProperties;
+        this.clientDetailsService = clientDetailsService;
+        this.defaultAuthorizationServerTokenServices = defaultAuthorizationServerTokenServices;
+        this.passwordEncoder = passwordEncoder;
+    }
 
-    @Autowired
-    private AuthorizationServerTokenServices defaultAuthorizationServerTokenServices;
-
-    @Autowired
-    private PasswordEncoder passwordEncoder;
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         log.info("认证成功，enter onAuthenticationSuccess method...");
