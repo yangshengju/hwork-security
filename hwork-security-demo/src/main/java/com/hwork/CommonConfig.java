@@ -2,6 +2,8 @@ package com.hwork;
 
 import com.alibaba.druid.pool.DruidDataSource;
 
+import java.sql.SQLException;
+
 /**
  * Created by yangshengju on 2018-8-13.
  */
@@ -35,33 +37,24 @@ public class CommonConfig {
         ds.setMinIdle(30);
         ds.setMaxActive(100);
         /*!-- 配置获取连接等待超时的时间 */
-//        ds.setMaxWait(60000);
+        ds.setMaxWait(60000);
         /**!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 */
-//        ds.setTimeBetweenEvictionRunsMillis(60000);
+        ds.setTimeBetweenEvictionRunsMillis(60000);
         /*!-- 配置一个连接在池中最小生存的时间，单位是毫秒*/
 //        ds.setMinEvictableIdleTimeMillis(300000);
 
-//        ds.setTestWhileIdle(true);
+        ds.setTestWhileIdle(true);
 //        ds.setTestOnBorrow(false);
 //        ds.setTestOnReturn(false);
 
-        /*
-        * 打开PSCache，并且指定每个连接上PSCache的大小
-        */
-        /*if(driverClass.contains("OracleDriver")) {
-            ds.setValidationQuery(" SELECT 1 FROM dual ");
-            ds.setPoolPreparedStatements(true);
-            ds.setMaxPoolPreparedStatementPerConnectionSize(20);
-        } else {
             ds.setValidationQuery(" SELECT 1 ");
             ds.setPoolPreparedStatements(false);
-        }
 
         try {
             ds.setFilters("stat");
         } catch (SQLException e) {
             e.printStackTrace();
-        }*/
+        }
     }
 
     /**

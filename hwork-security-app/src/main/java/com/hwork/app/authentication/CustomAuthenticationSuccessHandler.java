@@ -58,8 +58,8 @@ public class CustomAuthenticationSuccessHandler extends SavedRequestAwareAuthent
 
         if (clientDetails == null) {
             throw new UnapprovedClientAuthenticationException("clientId对应的配置信息不存在:" + clientId);
-//        } else if (!StringUtils.equals(clientDetails.getClientSecret(), passwordEncoder.encode(clientSecret))) {
-//            throw new UnapprovedClientAuthenticationException("clientSecret不匹配:" + clientId);
+        } else if (!passwordEncoder.matches(clientSecret,clientDetails.getClientSecret())) {
+            throw new UnapprovedClientAuthenticationException("clientSecret不匹配:" + clientId);
         }
 
         TokenRequest tokenRequest = new TokenRequest(MapUtils.EMPTY_SORTED_MAP, clientId, clientDetails.getScope(), "custom");
