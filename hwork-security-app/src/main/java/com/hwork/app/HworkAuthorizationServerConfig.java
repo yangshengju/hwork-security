@@ -25,7 +25,7 @@ public class HworkAuthorizationServerConfig extends AuthorizationServerConfigure
 
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-        clients.inMemory().withClient("hwork").secret(passwordEncoder.encode("hworkSecret")).authorizedGrantTypes("authorization_code","password")
+        clients.inMemory().withClient("hwork").secret(passwordEncoder.encode("hworkSecret")).authorizedGrantTypes("authorization_code","password","refresh_token")
                 .scopes("all").authorities("USER").redirectUris("http://localhost/user/authInfo");
     }
 
