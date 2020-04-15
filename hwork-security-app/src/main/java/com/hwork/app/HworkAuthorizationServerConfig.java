@@ -1,5 +1,6 @@
 package com.hwork.app;
 
+import com.hwork.core.properties.OAuth2ClientProperties;
 import com.hwork.core.properties.SecurityProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -9,6 +10,8 @@ import org.springframework.security.oauth2.config.annotation.configurers.ClientD
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
+import org.springframework.security.oauth2.provider.token.TokenStore;
+import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 
 @Configuration
 @EnableAuthorizationServer
@@ -23,10 +26,25 @@ public class HworkAuthorizationServerConfig extends AuthorizationServerConfigure
     @Autowired
     private AuthenticationManager authenticationManager;
 
+    @Autowired
+    private TokenStore redisTokenStore;
+
+    @Autowired
+    private JwtAccessTokenConverter jwtAccessTokenConverter;
+
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-        clients.inMemory().withClient("hwork").secret(passwordEncoder.encode("hworkSecret")).authorizedGrantTypes("authorization_code","password","refresh_token")
-                .scopes("all").authorities("USER").redirectUris("http://localhost/user/authInfo");
+        for (OAuth2ClientProperties client:securityProperties.getOauth2().getClients()
+             ) {
+            clients.inMemory().withClient(client.getClientId())
+                    .secret(passwordEncoder.encode(client.getClientSecret()))
+                    .authorizedGrantTypes(client.getAuthorizedGrantTypes())
+                    .scopes(client.getScopes())
+                    .accessTokenValiditySeconds(client.getAccessTokenValiditySeconds())
+                    .authorities(client.getAuthorities())
+                    .redirectUris(client.getRedirectUris());
+        }
+
     }
 
     /*@Override
@@ -36,6 +54,10 @@ public class HworkAuthorizationServerConfig extends AuthorizationServerConfigure
 
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-        endpoints.authenticationManager(authenticationManager);
+        endpoints.tokenStore(redisTokenStore)
+                .authenticationManager(authenticationManager);
+        if(jwtAccessTokenConverter!=null) {
+            endpoints.accessTokenConverter(jwtAccessTokenConverter);
+        }
     }
 }

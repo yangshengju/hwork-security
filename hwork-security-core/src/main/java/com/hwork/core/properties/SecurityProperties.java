@@ -15,4 +15,6 @@ public class SecurityProperties {
 
     private ValidateCodeProperties code;
 
+    private OAuth2Properties oauth2 = new OAuth2Properties();
+
 }
