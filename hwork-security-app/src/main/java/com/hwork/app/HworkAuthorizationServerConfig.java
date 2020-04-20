@@ -18,6 +18,9 @@ import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenCo
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author yangs
+ */
 @Configuration
 @EnableAuthorizationServer
 public class HworkAuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
@@ -54,11 +57,6 @@ public class HworkAuthorizationServerConfig extends AuthorizationServerConfigure
 
     }
 
-    /*@Override
-    public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
-        security.passwordEncoder(NoOpPasswordEncoder.getInstance());
-    }*/
-
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         endpoints.tokenStore(redisTokenStore)
@@ -70,7 +68,6 @@ public class HworkAuthorizationServerConfig extends AuthorizationServerConfigure
 
             if(jwtAccessTokenConverter!=null) {
                 tokenEnhancers.add(jwtAccessTokenConverter);
-//                endpoints.accessTokenConverter(jwtAccessTokenConverter);
             }
             tokenEnhancerChain.setTokenEnhancers(tokenEnhancers);
             endpoints.tokenEnhancer(tokenEnhancerChain);
